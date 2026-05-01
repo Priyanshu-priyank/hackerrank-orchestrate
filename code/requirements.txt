@@ -1,0 +1,6 @@
+google-genai==1.74.0
+chromadb==0.6.3
+sentence-transformers==3.4.1
+pandas==2.2.3
+python-dotenv==1.0.1
+pydantic==2.11.3

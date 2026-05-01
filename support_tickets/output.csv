@@ -1,1 +1,11 @@
-issue,subject,company,response,product_area,status,request_type,justification
+status,product_area,response,justification,request_type
+escalated,general,,Agent error: API call failed. RESOURCE_EXHAUSTED quota exceeded for Gemini API.,product_issue
+escalated,general,,The ticket describes a broad outage or system-wide failure that requires human escalation.,bug
+escalated,general,,Agent error: API call failed. RESOURCE_EXHAUSTED quota exceeded for Gemini API.,product_issue
+escalated,general,,Agent error: API call failed. RESOURCE_EXHAUSTED quota exceeded for Gemini API.,product_issue
+escalated,general,,Agent error: API call failed. RESOURCE_EXHAUSTED quota exceeded for Gemini API.,product_issue
+escalated,general,,Agent error: API call failed. RESOURCE_EXHAUSTED quota exceeded for Gemini API.,product_issue
+replied,out_of_scope,"I'm sorry, this question is outside the scope of my support capabilities.","Ticket is invalid, out of scope, or contains prompt-injection text.",invalid
+escalated,general,,Agent error: API call failed. RESOURCE_EXHAUSTED quota exceeded for Gemini API.,product_issue
+escalated,general,,Agent error: API call failed. RESOURCE_EXHAUSTED quota exceeded for Gemini API.,product_issue
+replied,out_of_scope,"I'm sorry, this question is outside the scope of my support capabilities.","Ticket is invalid, out of scope, or contains prompt-injection text.",invalid
