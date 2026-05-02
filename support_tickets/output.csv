@@ -1,11 +1,147 @@
 status,product_area,response,justification,request_type
-escalated,general,,Gemini returned unparseable response.,product_issue
-escalated,unknown,,"The user is reporting a system outage, which requires immediate escalation according to the instructions. There is no relevant information in the provided corpus to address this issue.",bug
-replied,Screen,"HackerRank's test variants allow you to create a single assessment that adapts to different candidate profiles, personalizing the evaluation based on roles, skills, or other criteria. This approach eliminates the need to manage separate tests, improves efficiency, and ensures candidates are assessed on the most relevant content. For example, if you have a 'Front End Developer' role but need to assess candidates on specific frameworks like React, Angular, or Vue.js, creating variants within one test would be the recommended best practice. You would create a new, custom test when you need a highly tailored assessment for a completely distinct role or unique hiring needs.","The response is grounded in Document 1, 'Create Test Variants,' which explains that variants allow a single assessment to adapt to different candidate profiles, improving efficiency and ensuring relevant content. It also draws from Document 2, 'creating-a-new-test.md,' which describes custom tests as suitable for highly tailored assessments for particular roles or skill levels. The user's example of front-end developer roles with different frameworks directly aligns with the use case for variants described in the corpus.",product_issue
-escalated,general,,"API Error during processing: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",product_issue
-replied,Account Settings,"To delete your HackerRank Community account, you must first set a password since you signed up using Google. Please refer to the ""Resetting password"" documentation to set your password. Once a password is set, you can proceed to delete your account by logging in, going to Settings, scrolling to the ""Delete Accounts"" section, and following the prompts.","Document 1, ""Delete an Account"", explicitly states that if a user signed up using a third-party account (like Google), they must set a password before deleting their account and refers to the ""Resetting password"" documentation. It then outlines the steps for deleting an account, which includes entering the account password.",product_issue
-replied,Conversation management,"You can delete specific conversations. When Claude references previous conversations, you will see citations linking back to the original chats, along with the option to delete them. When a conversation is deleted, its summary is also deleted.","The corpus excerpt '11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context.md' states: 'When Claude references previous conversations, you'll see citations linking back to the original chats, along with the option to delete specific conversations.' and 'When a conversation is deleted, its summary is also deleted.' This directly answers the user's question about deleting a conversation.",product_issue
-replied,None,This question is outside the scope of our support.,"The corpus did not contain any information related to the actor in Iron Man, and the request is irrelevant to the supported products. As per instructions, for out-of-scope questions, a polite 'out of scope' message is provided, status=replied, and request_type=invalid.",invalid
-replied,Visa Traveller's Cheques,"If your Visa Traveller's Cheques from Citicorp were stolen, you should immediately call Citicorp. You can reach them at Freephone: 1-800-645-6556 or Collect: 1-813-623-1709. Their customer service representatives are available Monday-Friday, 6:30 am to 2:30 pm EST. When you call, be prepared to provide the cheque serial numbers, where and when you bought the cheques, and how and when you think they were lost or stolen. The refund can usually be arranged within 24 hours, subject to certain terms and conditions.","The response is based on Document 2, 'Visa Traveller's Cheques for Consumers', specifically the 'Report a lost cheque' section which advises calling the issuing bank immediately and provides contact details for Citicorp. The 'Request a refund' section also details the information the issuer will ask for.",product_issue
-replied,Card Services,"To report a lost or stolen Visa card from India, please call Visa at 000-800-100-1219.",Document 1 explicitly provides the phone number 000-800-100-1219 for reporting a lost card in India.,product_issue
-replied,General,"You're welcome! If you have any questions or need assistance in the future, please feel free to ask.",The user sent a thank you message without a specific query. This is a general polite response acknowledging their message. No specific corpus section is needed as it's a conversational closing.,invalid
+replied,account,"I understand you've lost access to your Claude team workspace after your IT admin removed your seat. Once a member is removed from a team, they lose access to the organization immediately. If you are re-added to the team using the same email address, your account history will be maintained. Please contact your IT admin to be re-added to the workspace.",,product_issue
+replied,assessments,"I understand you're concerned about your HackerRank test score and its impact on your application. Unfortunately, I don't have the ability to review your answers or adjust your score. However, candidates can reach out to support@hackerrank.com for technical issues. Also, you can go through the FAQs to clear your doubts: https://candidatesupport.hackerrank.com/hc/en-us/categories/4402828710675-FAQ.",,product_issue
+replied,card_services,A cardholder can dispute a transaction with their issuer if they question a charge on their billing statement. Please contact your card issuer to dispute the transaction.,,product_issue
+replied,assessments,"I am sorry to hear that your mock interview stopped unexpectedly. To view your previous Coding mock interviews:
+
+1. Go to the **Prepare** tab.
+2. Locate the **Coding** card under the **AI-powered Mock Interviews** section.
+3. Click **Take Interview**.
+4. Click **View Previous Interviews.** The **My Previous Mock Interviews** dialog displays a list of your previous mock interviews, including the date and score for each.
+5. Click **Show Feedback** next to an attempt to view the feedback report.
+
+Unfortunately, I am unable to assist with refunds. Please contact customer support for assistance with this issue.",,product_issue
+replied,billing,"Refresh the page and retry the payment. If any amount was deducted incorrectly, it will be refunded within 5–10 business days.",,product_issue
+replied,assessments,"To assist with your company's infosec process when using HackerRank for hiring, please refer to the following articles:
+
+1.  Creating Tests: This will guide you on how to create tests based on specific roles or customize them to suit your company’s hiring requirements. You can create Tests by including skill-mapped questions from the HackerRank library or your company library.
+2.  Inviting Candidates: Once you have created your tests, you can invite your candidates to take part in this assessment by sending them an email invitation containing the link to **Start Test.**
+3.  Ashby - HackerRank Integration Configuration Guide: This article provides you with detailed configuration steps on HackerRank and Ashby to facilitate a seamless and efficient candidate screening process.
+
+These resources should provide a solid foundation for integrating HackerRank into your hiring process while addressing your company's infosec requirements.",,product_issue
+replied,assessments,"I'm sorry, I cannot directly address the issue of the ""apply tab"" not being visible, as the provided documentation does not contain information on this specific feature or problem. However, if you are an interviewer and the candidate is unable to see a tab during an interview, ensure that the tab is unlocked. To unlock a tab, click the 'Unlock' button next to the tab you want the candidate to see.",,product_issue
+replied,assessments,"If your submissions are not working, please try the following steps:
+
+1. Close the challenge window, then reopen it using the same challenge link.
+2. Open the challenge in another supported browser, such as the latest versions of Chrome, Firefox, or Edge, for full compatibility.
+3. Ensure your internet connection is stable.
+
+If the issue persists, contact HackerRank support at help@hackerrank.com.",,product_issue
+replied,assessments,"The platform checks for screen mirroring before the test starts, and candidates must use a single, non-mirrored display to begin. If screen mirroring is detected during the test, a message prompts candidates to disconnect it before they can continue. The pre-test compatibility page also detects WebSocket connectivity issues and provides guidance to resolve them. You can also manually enter a test link in the Desktop App if the app does not open automatically.",,product_issue
+replied,assessments,"To reschedule your HackerRank assessment, follow these steps:
+
+1.  Log in to your **HackerRank for Work** account using your credentials.
+2.  Go to the **Interviews** \>**Interview List**. The page displays a list of all interviews you have created.
+3.  Click the interview you want to reschedule. The I**nterview Details** panel appears.
+4.  Click **Invite Participants**.
+5.  Update the following fields:
+    *   **Date:** Choose the new interview date.
+    *   **Time:** Choose the new interview time.
+    *   **Interview Duration** (Optional): Set the duration of the interview.
+    *   **Time zone** (Optional)**:** Choose the time zone for the interview.
+    *   **Email Notes** (Optional)**:** Enter additional details about the schedule change, if necessary. This field is visible only to the interviewer.
+6.  Click **Save and Send Email**.
+
+All participants receive an email notification with the updated schedule.",,product_issue
+replied,assessments,"I'm sorry, but I cannot confirm the specific inactivity times for candidates and interviewers, nor whether they differ. The provided documentation does not include information on inactivity timeouts or automatic disconnections from interview sessions. Please contact support@hackerrank.com for further assistance.",,product_issue
+replied,general,"This error usually indicates an issue on your end, potentially related to your firewall, network, or VPN. Try these steps:
+
+- Check if there are any firewall rules or network restrictions blocking the connection to the Claude API endpoint.
+- Configure your firewall or network settings to allow the connection.
+- Ensure you're not using a VPN when running the request.
+
+If you need to [contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support) for further assistance, you can do so by clicking on the message icon in the bottom right of our Help Center, or by clicking your initials in the lower left corner of your Claude Console account, then ""Get help.""",,product_issue
+escalated,account,,,product_issue
+replied,billing,"To pause your HackerRank subscription, please follow these steps:
+
+1.  Access Subscription Settings:
+    *   Click on the profile icon in the top-right corner of the page and select Settings from the dropdown menu.
+    *   Navigate to the Billing section under Subscription.
+2.  Initiate Pause Subscription:
+    *   Click the Cancel Plan button. The UI will display a prompt about the new Pause Subscription feature.
+    *   Select the desired pause duration:
+        *   Minimum: 1 month
+        *   Maximum: 12 months
+3.  Confirm Pause:
+    *   Click Confirm Pause. A confirmation message will appear, displaying the pause duration and the automatic resume date.",,product_issue
+replied,general,"If Claude is not responding to any requests, there might be capacity constraints. Please check [our status page](http://status.claude.com) for active incidents. You can also try sending your message again. If the problem persists, you can [contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support).",,product_issue
+replied,card_services,"If your card is lost, stolen, damaged or compromised, we will work with your financial institution to approve and expedite the delivery of an emergency card to you, usually within 1 to 3 days. For help, call us on the USA freephone number (+1 800 847 2911) or use one of our global freephone numbers from the drop-down menu above.",,product_issue
+replied,assessments,"To create a resume using HackerRank Resume Builder:
+
+1.  Log in to [HackerRank Community](https://www.hackerrank.com/auth/login) using your credentials.
+2.  Click the **App Switcher** (grid icon) in the top-right corner.
+3.  Select **Resume Builder** from the dropdown menu.
+4.  Click **Create New** to build from scratch or **Import Resume** to upload an existing file.
+5.  Follow the prompts to complete your resume.",,product_issue
+replied,assessments,"Yes, you can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.
+
+To update the name on your certificate:
+
+1. Open your certificate page.
+2. In the **Full Name** field, enter the name you want to display.
+3. Click **Regenerate Certificate**.
+4. In the confirmation dialog, click **Update Name**.
+
+The platform updates your certificate with the new name.",,product_issue
+replied,card_services,"1. A cardholder disputes a transaction by contacting their issuer to question a charge on their billing statement.
+2. Your acquirer contacts you for an accurate copy of the transaction record.
+3. Promptly fax or mail an accurate, legible copy to keep the process on track.
+
+For further information about the dispute rules or practices, please contact your acquirer/processor.",,product_issue
+replied,general_support,"I'm sorry, this question is outside the scope of my support capabilities. For questions about bug bounties, please refer to the appropriate resource.",,invalid
+replied,general,"To block or remove websites from Claude web search, please refer to the articles listed under the section ""Related Articles"" in the help documentation. Specifically, this article may be helpful: [Does Anthropic crawl data from the web, and how can site owners block the crawler?](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler)",,product_issue
+replied,card_services,"I'm sorry, but I am unable to provide cash assistance. If your card is lost or stolen, please call Visa at 000-800-100-1219. You can also find answers to common questions about travelling, like the availability of ATMs and emergency services, in our [Travel Support section](/support/consumer/travel-support.html). If your card is damaged, call us on the USA freephone number (+1 800 847 2911) or use one of our global freephone numbers from the drop-down menu above.",,product_issue
+escalated,privacy,,,product_issue
+replied,general,"I'm sorry, this question is outside the scope of my support capabilities. I am unable to provide code that deletes files from your system.",,invalid
+replied,fraud,"I understand your Visa card has been blocked during your trip. Unfortunately, I cannot provide internal rules or fraud logic. However, if you suspect fraud on your Visa card, please adhere to your merchant store procedures and respond accordingly.",,product_issue
+replied,general,"For Claude in Amazon Bedrock support inquiries, contact AWS Support at https://aws.amazon.com/contact-us/ or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",,product_issue
+replied,account,"To remove an employee from your HackerRank hiring account, you will need to delete the team they are a part of. Here's how to delete a team:
+
+1.  Log in to your **HackerRank for Work** account using your credentials.
+2.  Select your profile icon in the upper-right corner.
+3.  Select **Teams Management** from the drop-down menu.
+4.  Go to the **Teams** tab.
+5.  Select the team you want to delete.
+6.  Click the delete icon.
+
+**Note:** Remove all users before deleting the team. For more information, see [Removing a team member](https://support.hackerrank.com/articles/2203617737-manage-team-members#removing-a-team-member).
+
+7.  In the confirmation dialog, click **Delete Team**. A success message appears.",,product_issue
+replied,account,"This article provides information on how to enable the Claude LTI integration in Canvas LMS. These steps are intended for Claude for Education administrators and Learning Management Systems (LMS) administrators.
+
+1.  In Canvas, sign in as an administrator and navigate to **Admin -> Developer Keys**.
+2.  Click ""+ Developer Key"" then ""+ LTI Key.""
+3.  Enter the following:
+    1.  **Key Name:** Claude LTI
+    2.  **Description:** Enter a short description for the Canva LTI 1.3 app
+    3.  **Redirect URIs:** [https://claude.ai/lti/launch](https://claude.ai/lti/launch)
+    4.  **Title: **Claude LTI
+    5.  **Target Link URI:** [https://claude.ai/lti/launch](https://claude.ai/lti/launch)
+    6.  **OpenID Connect Initiation Url:** [https://claude.ai/api/lti/login](https://claude.ai/api/lti/login)
+    7.  **JWK method:** [https://claude.ai/api/lti/keys](https://claude.ai/api/lti/keys)
+4.  Under **Additional Settings**, toggle Privacy Level to **Public**.
+5.  Under **Placements**, we recommend removing the defaults and adding ""Course Navigation"" and ""Assignment Edit"" as the options.
+6.  Click ""Save.""
+7.  Toggle the state to **On**.
+
+## Installing Claude LTI as an App
+
+1.  In Canvas, go to Admin -> Settings -> Apps.
+2.  Click ""View App Configurations"" then select ""+ App.""
+3.  Select **Configuration Type** “By Client ID.”
+4.  Input the Client ID generated for your developer key (from Step 6 under Creating Claude LTI Developer Key in Canvas).
+5.  Click ""Install"" and refresh the course page.
+
+## Turn on the Claude LTI Integration in Claude for Education organization settings
+
+1.  In Claude for Education, sign in as an administrator.
+2.  Navigate to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
+3.  Find **Canvas** and click ""Enable.""
+4.  In the settings modal that pops up, input the required information to enable the integration
+    1.  **Canvas Domain**
+    2.  **Client ID** (found in Canvas Admin -> Developer Keys)
+    3.  **Deployment ID** (found in Canvas Admin -> Settings -> Apps -> View App Configurations -> Claude LTI Settings Button -> Deployment ID)
+5.  Click ""Save Changes."" The integration should now show as enabled.
+
+If you have any questions about your Claude for Education plan account or the Claude LTI, we encourage you to contact your university’s administrator(s).",,product_issue
+replied,card_services,"I understand you're inquiring about a merchant requiring a minimum $10 spend on your Visa card in the US Virgin Islands. Visa's rules and policies are designed to ensure a secure and reliable payment experience. To report this issue, please use this online form: [Report a purchase issue](https://usa.visa.com/Forms/visa-rules.html).",,product_issue

@@ -1,0 +1,85 @@
+company,subject,issue,status,product_area,response,justification,request_type
+HackerRank,Test Active in the system,I notice that people I assigned the test in October of 2025 have not received new tests. How long do the tests stay active in the system.,replied,assessments,"You can define a start and end time to control when a test remains active. Candidates can only attempt the test during the active period. After the test expires, invited candidates cannot access the test, the Invite button is disabled, and you cannot invite new candidates.
+
+To modify the test expiration time:
+
+1. Log in to your **HackerRank for Work** account using your credentials.
+2. Go to the **Tests** tab.
+3. Open the test you want to update.
+4. Go to **Settings > General**.
+5. Modify the **Start date & time** and **End date & time** in the **Test Expiration Time** section.
+6. Click **Save Changes**.",,product_issue
+,,site is down & none of the pages are accessible,replied,general,"To check for confirmed incidents, visit status.claude.com, where you'll find real-time updates on scope, impact, and resolution progress for any active incidents.
+
+Capacity constraints are not outages. The system is functioning normally but managing high demand across all users. These issues are temporary and typically resolve as demand patterns shift throughout the day. If you encounter this message, try again in a few minutes.",,product_issue
+HackerRank,"When should I create a variant versus
+ have a different test?","I'm noticing that you all have many default versions of roles. (e.g. front end developer for react, angular, vue.js, etc.) What do you consider best practice 
+for when to create a new test versus create a variant of the test? What are the advantages and disadvantages of using variants?",replied,assessments,"Test variants allow you to create a single assessment that adapts to different candidate profiles. You can design multiple variants within the same assessment to personalize the evaluation based on roles, skills, or other criteria. This approach eliminates the need to manage separate tests, improves efficiency, and ensures candidates are assessed on the most relevant content.
+
+To create test variants:
+
+1. Log in to your **HackerRank for Work** account using your credentials.
+2. Go to the **Tests** tab.
+3. Open the test you want to modify.
+4. Go to the **Questions** tab.
+5. Click the more option menu (**⋮**) in the top right corner.
+6. Select **Create Variants.**
+7. Click **Create Variants.**
+
+The system converts the existing test into **Variant 1** and opens **Variant 2**, where you can start creating the second version. To add more variants, select the **+** icon next to the tabs.",,product_issue
+HackerRank,"How to reinvite candidate to Hackerrank 
+assessment and add extra time","Hi there
+
+We have sent a candidate a Hackerrank assessment already, but we have been informed that they require extra time. As the assessment is 105 minutes, they need an extra 50% extra time added (so around 53 minutes) in addition.
+
+Please can you provide step-by-step instruction on how we are to reinvite them.
+
+Do we find their profile in 'Candidates' , put in Add time 53 minutes and then click 'reinvite' and send the email? The email to the candidate says 105 minutes as the duration though still so not sure how we can check?
+
+Thanks",replied,assessments,"To add extra time to a HackerRank assessment for a candidate who has already been invited but hasn't started the test:
+
+1.  Log in to your **HackerRank for Work** account.
+2.  Go to the **Tests** tab.
+3.  Select the test you want to modify.
+4.  Go to the **Candidates** tab.
+5.  Select the checkbox next to the candidate(s) you want to accommodate time.
+6.  Click **More > Add Time Accommodation.**
+7.  Enter the accommodation percentage in multiples of five. For 50% extra time on a 105-minute test, you would enter 50%.
+8.  Click **Save**. A success message appears.
+
+After you apply time accommodation, the updated duration appears in the test invite email and on the test landing page before the candidate starts the test.",,product_issue
+HackerRank,,"i signed up using google login on hackerrank community , so i do not have a separate hackerrank password. please delete my account
+",replied,account,"To delete your HackerRank Community account:
+
+1. Log in to the [HackerRank Community](https://www.hackerrank.com/) using your credentials.
+2. Click the profile icon in the top-right corner.
+3. Select **Settings** from the drop-down menu. The **Settings** page appears under the **Account** section.
+4. Scroll to the **Delete Accounts** section.
+5. Click **Delete Account**. A confirmation dialog box appears.
+6. Select a reason for deleting your account from the available options.
+7. Click **Proceed to Delete**.
+8. Enter your **account password**.
+9. Click **Proceed to delete** again to confirm and complete the process.
+
+**Note:** If you signed up using a third-party account (for example, Google, GitHub, or Facebook), you must set a password before deleting your account. To do this, follow the steps in the [Resetting password](https://help.hackerrank.com/articles/2403570133-update-or-reset-password#resetting-password-5) documentation.",,product_issue
+Claude,,"One of my claude conversations has some private info, i forgot to make a temporary chat, is there anything
+ else that can be done? like delete etc?",replied,conversation_management,"While I cannot directly delete a specific conversation for you, there are a few options to consider:
+
+1.  **Incognito Chats:** For future conversations with sensitive information, use incognito chats. These chats are temporary and not saved to your chat history.
+2.  **Manage Memory:** You can manage Claude's memory by going to Settings > Capabilities and clicking “View and edit memory.” You can also tell Claude what you want it to remember directly from your chats.
+3.  **Past Chat Citations:** When Claude references previous conversations, you'll see citations linking back to the original chats, along with the option to delete specific conversations.",,product_issue
+None ,"Urgent, please help",What is the name of the actor in Iron Man?,replied,general,"I'm sorry, this question is outside the scope of my support capabilities. For questions about movie trivia, please refer to the appropriate resource.",,invalid
+Visa,,I bought Visa Traveller's Cheques from Citicorp and they were stolen in Lisbon last night. What do I do?,replied,card_services,"I am sorry to hear your Visa Traveller's Cheques were stolen. Please take the following steps:
+
+1.  Immediately call Citicorp to report the theft. You can reach them using the following numbers:
+    *   Freephone: 1-800-645-6556
+    *   Collect: 1-813-623-1709
+    *   Automated cheque verification is available 24 hours a day, 7 days a week (if you select the English or Spanish option).
+2.  Notify the police in Lisbon about the theft.
+3.  When you contact Citicorp, have the following information ready to request a refund:
+    *   Cheque serial numbers
+    *   Where and when you bought the cheques
+    *   How and when the cheques were lost or stolen
+    *   The issuer of the traveller's cheques (Citicorp)",,product_issue
+Visa,Card stolen,Where can I report a lost or stolen Visa card from India?,replied,card_services,"To report a lost or stolen Visa card, please call Visa at 000-800-100-1219.",,product_issue
+,,Thank you for helping me,replied,general,"I'm sorry, this question is outside the scope of my support capabilities. For questions about general inquiries, please refer to the appropriate resource.",,invalid
