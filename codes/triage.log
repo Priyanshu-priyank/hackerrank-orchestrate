@@ -1,0 +1,180 @@
+[2026-05-02 10:45:12] INFO    
+[2026-05-02 10:45:12] INFO    ================================================================
+[2026-05-02 10:45:12] INFO    HackerRank Orchestrate — Support Triage Agent
+[2026-05-02 10:45:12] INFO    Run started : 2026-05-02 10:45:12
+[2026-05-02 10:45:12] INFO    Log file    : C:\Users\priya\hackerrank-orchestrate-may26\codes\triage.log
+[2026-05-02 10:45:12] INFO    ================================================================
+[2026-05-02 10:45:12] INFO    Input  : C:\Users\priya\hackerrank-orchestrate-may26\support_tickets\sample_support_tickets.csv
+[2026-05-02 10:45:12] INFO    Output : C:\Users\priya\hackerrank-orchestrate-may26\support_tickets\output_sample_test.csv
+[2026-05-02 10:45:12] INFO    Loaded 10 rows from sample_support_tickets.csv
+[2026-05-02 10:45:12] DEBUG   CSV has extra columns (ignored): ['product area', 'request type']
+[2026-05-02 10:45:51] INFO    
+[2026-05-02 10:45:51] INFO    ================================================================
+[2026-05-02 10:45:51] INFO    Processing 10 ticket(s)...
+[2026-05-02 10:45:51] INFO    ================================================================
+[2026-05-02 10:45:55] INFO    [  1/10] co=hackerrank   status=replied    type=product_issue    area=assessments          (4.0s)
+[2026-05-02 10:45:55] DEBUG     justification: The user is asking about how long tests stay active in the system. The article 'Modify Test Expiration Time' explains how to modify the test...
+[2026-05-02 10:45:55] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:45:55] INFO    [  2/10] co=unknown      status=escalated  type=bug              area=general              (0.0s)
+[2026-05-02 10:45:55] DEBUG     justification: Ticket describes a system-wide outage or complete service unavailability. This requires immediate human intervention and cannot be resolved ...
+[2026-05-02 10:45:55] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:45:55] INFO           [PASS] status: expected='escalated'  got='escalated'
+[2026-05-02 10:45:58] INFO    [  3/10] co=hackerrank   status=replied    type=product_issue    area=assessments          (2.9s)
+[2026-05-02 10:45:58] DEBUG     justification: The user is asking about when to create a variant versus a new test. The first corpus excerpt discusses creating test variants and the advan...
+[2026-05-02 10:45:58] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:46:02] INFO    [  4/10] co=hackerrank   status=replied    type=product_issue    area=assessments          (3.8s)
+[2026-05-02 10:46:02] DEBUG     flags: HIGH_RISK[hack]
+[2026-05-02 10:46:02] DEBUG     justification: The user is asking how to add extra time to a Hackerrank assessment after it has already been sent. The steps for this are outlined in [Corp...
+[2026-05-02 10:46:02] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:46:06] INFO    [  5/10] co=hackerrank   status=replied    type=product_issue    area=account              (4.1s)
+[2026-05-02 10:46:06] DEBUG     flags: HIGH_RISK[hack]
+[2026-05-02 10:46:06] DEBUG     justification: The user wants to delete their account. The steps to delete an account are outlined in the 'Delete an Account' article. Since the user signe...
+[2026-05-02 10:46:06] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:46:09] INFO    [  6/10] co=claude       status=replied    type=product_issue    area=conversation_management (3.0s)
+[2026-05-02 10:46:09] DEBUG     justification: The user is asking about deleting a conversation with private information. I am replying with information about incognito chats, which are n...
+[2026-05-02 10:46:09] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:46:11] INFO    [  7/10] co=unknown      status=replied    type=invalid          area=invalid              (2.1s)
+[2026-05-02 10:46:11] DEBUG     justification: The user is asking a question about the actor in Iron Man, which is movie trivia. None of the provided corpus excerpts contain information a...
+[2026-05-02 10:46:11] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:46:15] WARNING [agent] OpenRouter JSON parse failed: Invalid \escape: line 4 column 371 (char 430) — raw: {
+  "status": "replied",
+  "product_area": "card_services",
+  "response": "I'm sorry to hear your Visa Traveller's Cheques were stolen. Since you purchased them from Citicorp, please contact them imme
+[2026-05-02 10:46:15] ERROR   [agent] All OpenRouter keys exhausted. Reason: Unknown error
+[2026-05-02 10:46:15] INFO    [  8/10] co=visa         status=escalated  type=product_issue    area=general_support      (3.3s)
+[2026-05-02 10:46:15] DEBUG     flags: HIGH_RISK[stolen]
+[2026-05-02 10:46:15] DEBUG     justification: Unable to process this ticket automatically. Escalated to a human agent for review.
+[2026-05-02 10:46:15] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:46:15] INFO           [FAIL] status: expected='replied'  got='escalated'
+[2026-05-02 10:46:17] INFO    [  9/10] co=visa         status=replied    type=product_issue    area=card_services        (2.2s)
+[2026-05-02 10:46:17] DEBUG     flags: HIGH_RISK[stolen]
+[2026-05-02 10:46:17] DEBUG     justification: The user is asking where to report a stolen Visa card from India. The corpus excerpt 1 provides a phone number to call Visa to report a lost...
+[2026-05-02 10:46:17] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:46:19] INFO    [ 10/10] co=unknown      status=replied    type=invalid          area=general              (2.4s)
+[2026-05-02 10:46:19] DEBUG     justification: The user is simply saying thank you. This is not a valid request, so I am replying with an out-of-scope message.
+[2026-05-02 10:46:19] INFO           [PASS] status: expected='replied'  got='replied'
+[2026-05-02 10:46:19] INFO    
+[2026-05-02 10:46:19] INFO    All 10 tickets processed in 27.8s (avg 2.8s/ticket)
+[2026-05-02 10:46:19] INFO    
+[2026-05-02 10:46:19] INFO    ================================================================
+[2026-05-02 10:46:19] INFO    Done. Output written to: C:\Users\priya\hackerrank-orchestrate-may26\support_tickets\output_sample_test.csv
+[2026-05-02 10:46:19] INFO    
+[2026-05-02 10:46:19] INFO    Summary
+[2026-05-02 10:46:19] INFO      Status       : {'replied': 8, 'escalated': 2}
+[2026-05-02 10:46:19] INFO      Request type : {'product_issue': 7, 'invalid': 2, 'bug': 1}
+[2026-05-02 10:46:19] INFO      Product area : {'assessments': 3, 'general': 2, 'account': 1, 'conversation_management': 1, 'invalid': 1, 'general_support': 1, 'card_services': 1}
+[2026-05-02 10:46:19] INFO      Escalated    : 2 ticket(s) — reasons:
+[2026-05-02 10:46:19] INFO        co=nan           Ticket describes a system-wide outage or complete service unavailability. This requires im
+[2026-05-02 10:46:19] INFO        co=Visa          Unable to process this ticket automatically. Escalated to a human agent for review.
+[2026-05-02 10:46:19] INFO    ================================================================
+[2026-05-02 10:46:19] INFO    Run ended : 2026-05-02 10:46:19
+[2026-05-02 10:46:19] INFO    
+[2026-05-02 10:46:35] INFO    
+[2026-05-02 10:46:35] INFO    ================================================================
+[2026-05-02 10:46:35] INFO    HackerRank Orchestrate — Support Triage Agent
+[2026-05-02 10:46:35] INFO    Run started : 2026-05-02 10:46:35
+[2026-05-02 10:46:35] INFO    Log file    : C:\Users\priya\hackerrank-orchestrate-may26\codes\triage.log
+[2026-05-02 10:46:35] INFO    ================================================================
+[2026-05-02 10:46:35] INFO    Input  : C:\Users\priya\hackerrank-orchestrate-may26\support_tickets\support_tickets.csv
+[2026-05-02 10:46:35] INFO    Output : C:\Users\priya\hackerrank-orchestrate-may26\support_tickets\output.csv
+[2026-05-02 10:46:35] INFO    Loaded 29 rows from support_tickets.csv
+[2026-05-02 10:46:43] INFO    
+[2026-05-02 10:46:43] INFO    ================================================================
+[2026-05-02 10:46:43] INFO    Processing 29 ticket(s)...
+[2026-05-02 10:46:43] INFO    ================================================================
+[2026-05-02 10:46:46] INFO    [  1/29] co=claude       status=replied    type=product_issue    area=account              (3.1s)
+[2026-05-02 10:46:46] DEBUG     justification: The user lost access to their Claude team workspace after being removed by their IT admin. According to the corpus excerpt 3, 'When a member...
+[2026-05-02 10:46:49] INFO    [  2/29] co=hackerrank   status=replied    type=product_issue    area=assessments          (2.9s)
+[2026-05-02 10:46:49] DEBUG     flags: HIGH_RISK[hack]
+[2026-05-02 10:46:49] DEBUG     justification: The user is disputing a test score and wants HackerRank to intervene. Corpus excerpt 1 mentions viewing candidate scores and detailed test r...
+[2026-05-02 10:46:52] INFO    [  3/29] co=visa         status=replied    type=product_issue    area=card_services        (2.8s)
+[2026-05-02 10:46:52] DEBUG     justification: The user is requesting a refund for a purchase made with their Visa card where they received the wrong product. The corpus excerpt 'dispute-...
+[2026-05-02 10:46:56] INFO    [  4/29] co=hackerrank   status=escalated  type=product_issue    area=assessments          (4.4s)
+[2026-05-02 10:46:56] DEBUG     justification: The user is requesting a refund for a mock interview that stopped working. The corpus excerpts do not provide information on how to handle r...
+[2026-05-02 10:46:56] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:00] INFO    [  5/29] co=hackerrank   status=replied    type=product_issue    area=billing              (4.2s)
+[2026-05-02 10:47:00] DEBUG     flags: HIGH_RISK[sue]
+[2026-05-02 10:47:00] DEBUG     justification: The user is reporting a payment issue. According to corpus excerpt 2, if a payment fails, the user should refresh the page and retry the pay...
+[2026-05-02 10:47:04] INFO    [  6/29] co=hackerrank   status=escalated  type=product_issue    area=assessments          (4.0s)
+[2026-05-02 10:47:04] DEBUG     flags: HIGH_RISK[hack]
+[2026-05-02 10:47:04] DEBUG     justification: The user is asking for help with their company's infosec process by filling in forms related to HackerRank. This request is security-related...
+[2026-05-02 10:47:04] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:07] INFO    [  7/29] co=hackerrank   status=replied    type=invalid          area=assessments          (2.8s)
+[2026-05-02 10:47:07] DEBUG     justification: The user is reporting an issue with practicing and submissions on HackerRank, specifically mentioning they cannot see the 'apply' tab. The p...
+[2026-05-02 10:47:11] INFO    [  8/29] co=hackerrank   status=replied    type=product_issue    area=assessments          (4.0s)
+[2026-05-02 10:47:11] DEBUG     justification: The user is reporting an issue with submissions not working. The coding challenges FAQ provides troubleshooting steps for challenges not loa...
+[2026-05-02 10:47:14] INFO    [  9/29] co=hackerrank   status=replied    type=product_issue    area=assessments          (3.0s)
+[2026-05-02 10:47:14] DEBUG     justification: The user is facing an issue with zoom connectivity during a compatibility check. The corpus excerpt 1 mentions 'WebSocket Connectivity Check...
+[2026-05-02 10:47:19] INFO    [ 10/29] co=hackerrank   status=replied    type=product_issue    area=assessments          (4.9s)
+[2026-05-02 10:47:19] DEBUG     flags: HIGH_RISK[hack]
+[2026-05-02 10:47:19] DEBUG     justification: The user is requesting to reschedule their HackerRank assessment. The steps to reschedule an interview are outlined in corpus excerpt 3, so ...
+[2026-05-02 10:47:23] INFO    [ 11/29] co=hackerrank   status=escalated  type=product_issue    area=assessments          (3.6s)
+[2026-05-02 10:47:23] DEBUG     justification: The user is asking about inactivity timeouts during interviews, which could lead to candidates being kicked out of the interview. The corpus...
+[2026-05-02 10:47:23] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:25] INFO    [ 12/29] co=unknown      status=escalated  type=product_issue    area=general              (2.3s)
+[2026-05-02 10:47:25] DEBUG     justification: The user reports that 'it's not working' without providing any context. Due to the ambiguity and potential for harm if answered incorrectly,...
+[2026-05-02 10:47:25] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:27] INFO    [ 13/29] co=hackerrank   status=escalated  type=product_issue    area=assessments          (2.2s)
+[2026-05-02 10:47:27] DEBUG     justification: The user is asking how to remove an interviewer from the platform. None of the provided documents contain information on how to remove a use...
+[2026-05-02 10:47:27] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:30] INFO    [ 14/29] co=hackerrank   status=replied    type=product_issue    area=billing              (3.1s)
+[2026-05-02 10:47:30] DEBUG     justification: The user wants to pause their HackerRank subscription. The steps to pause a subscription are outlined in Corpus excerpt 2 (5157311476-pause-...
+[2026-05-02 10:47:33] INFO    [ 15/29] co=claude       status=replied    type=product_issue    area=general              (2.8s)
+[2026-05-02 10:47:33] DEBUG     justification: The user reports that Claude is not responding. The corpus excerpt '12461605-using-claude-in-slack.md' mentions API failures or temporary se...
+[2026-05-02 10:47:35] INFO    [ 16/29] co=visa         status=replied    type=product_issue    area=card_services        (2.6s)
+[2026-05-02 10:47:35] DEBUG     flags: HIGH_RISK[stolen]
+[2026-05-02 10:47:35] DEBUG     justification: The user reports their identity has been stolen. While this is a high-risk issue, the corpus provides a phone number to call for help with a...
+[2026-05-02 10:47:38] INFO    [ 17/29] co=hackerrank   status=replied    type=product_issue    area=assessments          (2.6s)
+[2026-05-02 10:47:38] DEBUG     justification: The user reports that the Resume Builder is down. I am assuming this is a temporary issue and asking the user to try again. If the issue per...
+[2026-05-02 10:47:41] INFO    [ 18/29] co=hackerrank   status=replied    type=product_issue    area=assessments          (2.7s)
+[2026-05-02 10:47:41] DEBUG     justification: The user wants to update the name on their certificate. The steps to update the name on the certificate are outlined in the first corpus exc...
+[2026-05-02 10:47:43] INFO    [ 19/29] co=visa         status=replied    type=product_issue    area=card_services        (2.5s)
+[2026-05-02 10:47:43] DEBUG     justification: The user is asking how to dispute a charge. The corpus excerpt 'Visa / dispute-resolution.md' provides the steps to follow when a cardholder...
+[2026-05-02 10:47:46] INFO    [ 20/29] co=claude       status=escalated  type=bug              area=security             (2.4s)
+[2026-05-02 10:47:46] DEBUG     justification: The user is reporting a major security vulnerability. This is a sensitive issue that requires immediate attention from the security team. Th...
+[2026-05-02 10:47:46] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:49] INFO    [ 21/29] co=claude       status=replied    type=product_issue    area=general              (2.9s)
+[2026-05-02 10:47:49] DEBUG     justification: The user wants to stop Claude from crawling their website. The corpus excerpt 1 and 2 both mention the ability for site owners to control wh...
+[2026-05-02 10:47:51] INFO    [ 22/29] co=visa         status=replied    type=product_issue    area=card_services        (2.8s)
+[2026-05-02 10:47:51] DEBUG     justification: The user is requesting urgent cash with only their VISA card. While the corpus doesn't directly address providing cash, it does mention supp...
+[2026-05-02 10:47:54] INFO    [ 23/29] co=claude       status=escalated  type=product_issue    area=privacy              (2.4s)
+[2026-05-02 10:47:54] DEBUG     justification: The user is asking about how long their data will be used to improve Claude models. The provided corpus excerpts do not contain information ...
+[2026-05-02 10:47:54] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:56] INFO    [ 24/29] co=unknown      status=escalated  type=product_issue    area=general              (2.6s)
+[2026-05-02 10:47:56] DEBUG     justification: The user is asking for code to delete all files from the system. This is a highly sensitive request that could lead to data loss or system i...
+[2026-05-02 10:47:56] DEBUG     ESCALATED — no response generated
+[2026-05-02 10:47:56] INFO    [ 25/29] co=visa         status=replied    type=invalid          area=general              (0.0s)
+[2026-05-02 10:47:56] DEBUG     flags: PROMPT_INJECTION | HIGH_RISK[fraud]
+[2026-05-02 10:47:56] DEBUG     justification: Ticket contains prompt injection or instruction-override patterns. Treated as invalid per security policy.
+[2026-05-02 10:47:59] INFO    [ 26/29] co=claude       status=replied    type=product_issue    area=general              (2.5s)
+[2026-05-02 10:47:59] DEBUG     flags: HIGH_RISK[sue]
+[2026-05-02 10:47:59] DEBUG     justification: The user is experiencing issues with Claude in AWS Bedrock. According to the corpus, specifically the article titled 'I use Claude in Amazon...
+[2026-05-02 10:48:02] INFO    [ 27/29] co=hackerrank   status=replied    type=product_issue    area=account              (3.3s)
+[2026-05-02 10:48:02] DEBUG     flags: HIGH_RISK[hack]
+[2026-05-02 10:48:02] DEBUG     justification: The user wants to remove an employee from their HackerRank hiring account. Excerpt 3 describes how to delete a team and mentions removing te...
+[2026-05-02 10:48:07] INFO    [ 28/29] co=claude       status=replied    type=product_issue    area=account              (5.1s)
+[2026-05-02 10:48:07] DEBUG     justification: The user is asking about setting up a Claude LTI key for students. The first corpus excerpt provides step-by-step instructions on how to set...
+[2026-05-02 10:48:10] INFO    [ 29/29] co=visa         status=replied    type=invalid          area=card_services        (2.5s)
+[2026-05-02 10:48:10] DEBUG     justification: The user is asking about a merchant imposing a minimum spend on a Visa card. The provided corpus excerpts do not contain information about m...
+[2026-05-02 10:48:10] INFO    
+[2026-05-02 10:48:10] INFO    All 29 tickets processed in 86.9s (avg 3.0s/ticket)
+[2026-05-02 10:48:10] INFO    
+[2026-05-02 10:48:10] INFO    ================================================================
+[2026-05-02 10:48:10] INFO    Done. Output written to: C:\Users\priya\hackerrank-orchestrate-may26\support_tickets\output.csv
+[2026-05-02 10:48:10] INFO    
+[2026-05-02 10:48:10] INFO    Summary
+[2026-05-02 10:48:10] INFO      Status       : {'replied': 21, 'escalated': 8}
+[2026-05-02 10:48:10] INFO      Request type : {'product_issue': 25, 'invalid': 3, 'bug': 1}
+[2026-05-02 10:48:10] INFO      Product area : {'assessments': 11, 'general': 6, 'card_services': 5, 'account': 3, 'billing': 2, 'security': 1, 'privacy': 1}
+[2026-05-02 10:48:10] INFO      Escalated    : 8 ticket(s) — reasons:
+[2026-05-02 10:48:10] INFO        co=HackerRank    The user is requesting a refund for a mock interview that stopped working. The corpus exce
+[2026-05-02 10:48:10] INFO        co=HackerRank    The user is asking for help with their company's infosec process by filling in forms relat
+[2026-05-02 10:48:10] INFO        co=HackerRank    The user is asking about inactivity timeouts during interviews, which could lead to candid
+[2026-05-02 10:48:10] INFO        co=nan           The user reports that 'it's not working' without providing any context. Due to the ambigui
+[2026-05-02 10:48:10] INFO        co=HackerRank    The user is asking how to remove an interviewer from the platform. None of the provided do
+[2026-05-02 10:48:10] INFO        co=Claude        The user is reporting a major security vulnerability. This is a sensitive issue that requi
+[2026-05-02 10:48:10] INFO        co=Claude        The user is asking about how long their data will be used to improve Claude models. The pr
+[2026-05-02 10:48:10] INFO        co=nan           The user is asking for code to delete all files from the system. This is a highly sensitiv
+[2026-05-02 10:48:10] INFO    ================================================================
+[2026-05-02 10:48:10] INFO    Run ended : 2026-05-02 10:48:10
+[2026-05-02 10:48:10] INFO    

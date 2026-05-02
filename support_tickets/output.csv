@@ -1,34 +1,25 @@
 status,product_area,response,justification,request_type
-replied,account,"I understand you've lost access to your Claude team workspace after your IT admin removed your seat. Once a member is removed from a team, they lose access to the organization immediately. If you are re-added to the team using the same email address, your account history will be maintained. Please contact your IT admin to be re-added to the workspace.",,product_issue
-replied,assessments,"I understand you're concerned about your HackerRank test score and its impact on your application. Unfortunately, I don't have the ability to review your answers or adjust your score. However, candidates can reach out to support@hackerrank.com for technical issues. Also, you can go through the FAQs to clear your doubts: https://candidatesupport.hackerrank.com/hc/en-us/categories/4402828710675-FAQ.",,product_issue
-replied,card_services,A cardholder can dispute a transaction with their issuer if they question a charge on their billing statement. Please contact your card issuer to dispute the transaction.,,product_issue
-replied,assessments,"I am sorry to hear that your mock interview stopped unexpectedly. To view your previous Coding mock interviews:
+replied,account,"I understand you've lost access to your Claude team workspace after your IT admin removed your seat. Unfortunately, once a member is removed from a team, they immediately lose access to the organization. The seat they occupied becomes available to assign to another user. You will need to contact your IT admin to be re-added to the team.","The user lost access to their Claude team workspace after being removed by their IT admin. According to the corpus excerpt 3, 'When a member is removed: They lose access to the organization immediately. The seat they occupied becomes available to assign to another user.' Therefore, the user needs to be re-added by the admin.",product_issue
+replied,assessments,"I understand you're concerned about your HackerRank test score. HackerRank integrates with various platforms to provide assessments, and the results are used by the hiring teams of those platforms. While I cannot directly review your answers or change your score, you can view the detailed test report if the integration supports it. For technical issues, candidates can reach out to support@hackerrank.com.",The user is disputing a test score and wants HackerRank to intervene. Corpus excerpt 1 mentions viewing candidate scores and detailed test reports through integrations. Corpus excerpt 3 provides the support email for candidates facing technical issues. I am replying because the corpus provides a general direction for the user.,product_issue
+replied,card_services,"Learn the basics about how to handle disputes. Although most sales transactions are processed, posted and paid for with few problems, Visa has an efficient process for settling disputes. Disputes refer to the reversal of the value (in whole or in part) of a transaction by the card issuer to the acquirer, and usually, by the merchant bank to the merchant. Chargeback can be costly for merchants – you could lose both the cash amount of the transaction as well as the related merchandise, and may also incur internal handling costs.
 
-1. Go to the **Prepare** tab.
-2. Locate the **Coding** card under the **AI-powered Mock Interviews** section.
-3. Click **Take Interview**.
-4. Click **View Previous Interviews.** The **My Previous Mock Interviews** dialog displays a list of your previous mock interviews, including the date and score for each.
-5. Click **Show Feedback** next to an attempt to view the feedback report.
-
-Unfortunately, I am unable to assist with refunds. Please contact customer support for assistance with this issue.",,product_issue
-replied,billing,"Refresh the page and retry the payment. If any amount was deducted incorrectly, it will be refunded within 5–10 business days.",,product_issue
-replied,assessments,"To assist with your company's infosec process when using HackerRank for hiring, please refer to the following articles:
-
-1.  Creating Tests: This will guide you on how to create tests based on specific roles or customize them to suit your company’s hiring requirements. You can create Tests by including skill-mapped questions from the HackerRank library or your company library.
-2.  Inviting Candidates: Once you have created your tests, you can invite your candidates to take part in this assessment by sending them an email invitation containing the link to **Start Test.**
-3.  Ashby - HackerRank Integration Configuration Guide: This article provides you with detailed configuration steps on HackerRank and Ashby to facilitate a seamless and efficient candidate screening process.
-
-These resources should provide a solid foundation for integrating HackerRank into your hiring process while addressing your company's infosec requirements.",,product_issue
-replied,assessments,"I'm sorry, I cannot directly address the issue of the ""apply tab"" not being visible, as the provided documentation does not contain information on this specific feature or problem. However, if you are an interviewer and the candidate is unable to see a tab during an interview, ensure that the tab is unlocked. To unlock a tab, click the 'Unlock' button next to the tab you want the candidate to see.",,product_issue
-replied,assessments,"If your submissions are not working, please try the following steps:
+To resolve this issue:
+1. A cardholder disputes a transaction by contacting their issuer to question a charge on their billing statement.
+2. Your acquirer contacts you for an accurate copy of the transaction record.
+3. Promptly fax or mail an accurate, legible copy to keep the process on track.","The user is requesting a refund for a purchase made with their Visa card where they received the wrong product. The corpus excerpt 'dispute-resolution.md' describes the dispute resolution process, including how a cardholder can dispute a transaction and the steps involved. Therefore, I am replying with this information.",product_issue
+escalated,assessments,,"The user is requesting a refund for a mock interview that stopped working. The corpus excerpts do not provide information on how to handle refund requests. Therefore, I must escalate this issue.",product_issue
+replied,billing,"Refresh the page and retry the payment. If any amount was deducted incorrectly, it will be refunded within 5–10 business days. If you are still encountering issues, contact support@hackerrank.com.","The user is reporting a payment issue. According to corpus excerpt 2, if a payment fails, the user should refresh the page and retry the payment. If any amount was deducted incorrectly, it will be refunded within 5–10 business days. If the issue persists, they can contact support@hackerrank.com as per corpus excerpt 1.",product_issue
+escalated,assessments,,"The user is asking for help with their company's infosec process by filling in forms related to HackerRank. This request is security-related and requires a human to handle it, so I am escalating. The corpus does not contain information about filling out infosec forms.",product_issue
+replied,assessments,"I'm sorry, this question is outside the scope of my support capabilities. For questions about practicing and submission issues, please refer to the appropriate resource.","The user is reporting an issue with practicing and submissions on HackerRank, specifically mentioning they cannot see the 'apply' tab. The provided corpus excerpts do not contain information on troubleshooting submission issues or the 'apply' tab, so I am replying with an out-of-scope message.",invalid
+replied,assessments,"If your challenges do not load or show an infinite Processing message, please try the following:
 
 1. Close the challenge window, then reopen it using the same challenge link.
 2. Open the challenge in another supported browser, such as the latest versions of Chrome, Firefox, or Edge, for full compatibility.
 3. Ensure your internet connection is stable.
 
-If the issue persists, contact HackerRank support at help@hackerrank.com.",,product_issue
-replied,assessments,"The platform checks for screen mirroring before the test starts, and candidates must use a single, non-mirrored display to begin. If screen mirroring is detected during the test, a message prompts candidates to disconnect it before they can continue. The pre-test compatibility page also detects WebSocket connectivity issues and provides guidance to resolve them. You can also manually enter a test link in the Desktop App if the app does not open automatically.",,product_issue
-replied,assessments,"To reschedule your HackerRank assessment, follow these steps:
+If you are still facing an issue, contact HackerRank support at help@hackerrank.com.","The user is reporting an issue with submissions not working. The coding challenges FAQ provides troubleshooting steps for challenges not loading or showing a processing message. I have provided these steps to the user. If the issue persists, the user is advised to contact HackerRank support.",product_issue
+replied,assessments,"The pre-test compatibility page now detects WebSocket connectivity issues and provides guidance to resolve them. Please ensure that you have met all the technical requirements for network stability, supported operating systems, and supported browsers. You can also manually enter a test link in the Desktop App if the app does not open automatically when you click the test link.","The user is facing an issue with zoom connectivity during a compatibility check. The corpus excerpt 1 mentions 'WebSocket Connectivity Check on Compatibility Page' and 'Manual Test Link Input in Desktop App' which are relevant to the user's issue. Therefore, I am replying to the user with this information.",product_issue
+replied,assessments,"To reschedule your HackerRank assessment, please follow these steps:
 
 1.  Log in to your **HackerRank for Work** account using your credentials.
 2.  Go to the **Interviews** \>**Interview List**. The page displays a list of all interviews you have created.
@@ -42,38 +33,21 @@ replied,assessments,"To reschedule your HackerRank assessment, follow these step
     *   **Email Notes** (Optional)**:** Enter additional details about the schedule change, if necessary. This field is visible only to the interviewer.
 6.  Click **Save and Send Email**.
 
-All participants receive an email notification with the updated schedule.",,product_issue
-replied,assessments,"I'm sorry, but I cannot confirm the specific inactivity times for candidates and interviewers, nor whether they differ. The provided documentation does not include information on inactivity timeouts or automatic disconnections from interview sessions. Please contact support@hackerrank.com for further assistance.",,product_issue
-replied,general,"This error usually indicates an issue on your end, potentially related to your firewall, network, or VPN. Try these steps:
+All participants receive an email notification with the updated schedule.","The user is requesting to reschedule their HackerRank assessment. The steps to reschedule an interview are outlined in corpus excerpt 3, so I have provided those steps to the user.",product_issue
+escalated,assessments,,"The user is asking about inactivity timeouts during interviews, which could lead to candidates being kicked out of the interview. The corpus does not contain information about inactivity timeouts or the ability to configure them. Because this is a product issue that could negatively impact users, I am escalating.",product_issue
+escalated,general,,"The user reports that 'it's not working' without providing any context. Due to the ambiguity and potential for harm if answered incorrectly, I am escalating this ticket. The corpus does not contain a general troubleshooting guide.",product_issue
+escalated,assessments,,"The user is asking how to remove an interviewer from the platform. None of the provided documents contain information on how to remove a user. Since this is an account-related issue, I am escalating.",product_issue
+replied,billing,"Follow these steps to pause your subscription:
 
-- Check if there are any firewall rules or network restrictions blocking the connection to the Claude API endpoint.
-- Configure your firewall or network settings to allow the connection.
-- Ensure you're not using a VPN when running the request.
-
-If you need to [contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support) for further assistance, you can do so by clicking on the message icon in the bottom right of our Help Center, or by clicking your initials in the lower left corner of your Claude Console account, then ""Get help.""",,product_issue
-escalated,account,,,product_issue
-replied,billing,"To pause your HackerRank subscription, please follow these steps:
-
-1.  Access Subscription Settings:
-    *   Click on the profile icon in the top-right corner of the page and select Settings from the dropdown menu.
-    *   Navigate to the Billing section under Subscription.
-2.  Initiate Pause Subscription:
-    *   Click the Cancel Plan button. The UI will display a prompt about the new Pause Subscription feature.
-    *   Select the desired pause duration:
-        *   Minimum: 1 month
-        *   Maximum: 12 months
-3.  Confirm Pause:
-    *   Click Confirm Pause. A confirmation message will appear, displaying the pause duration and the automatic resume date.",,product_issue
-replied,general,"If Claude is not responding to any requests, there might be capacity constraints. Please check [our status page](http://status.claude.com) for active incidents. You can also try sending your message again. If the problem persists, you can [contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support).",,product_issue
-replied,card_services,"If your card is lost, stolen, damaged or compromised, we will work with your financial institution to approve and expedite the delivery of an emergency card to you, usually within 1 to 3 days. For help, call us on the USA freephone number (+1 800 847 2911) or use one of our global freephone numbers from the drop-down menu above.",,product_issue
-replied,assessments,"To create a resume using HackerRank Resume Builder:
-
-1.  Log in to [HackerRank Community](https://www.hackerrank.com/auth/login) using your credentials.
-2.  Click the **App Switcher** (grid icon) in the top-right corner.
-3.  Select **Resume Builder** from the dropdown menu.
-4.  Click **Create New** to build from scratch or **Import Resume** to upload an existing file.
-5.  Follow the prompts to complete your resume.",,product_issue
-replied,assessments,"Yes, you can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.
+1.  **Access Subscription Settings**: Click on the **profile icon** in the top-right corner of the page and select **Settings** from the dropdown menu.
+2.  Navigate to the **Billing** section under **Subscription**.
+3.  **Initiate Pause Subscription**: Click the **Cancel Plan** button. The UI will display a prompt about the new **Pause Subscription** feature.
+4.  Select the desired pause duration (Minimum: **1 month**, Maximum: **12 months**).
+5.  **Confirm Pause**: Click **Confirm Pause**. A confirmation message will appear, displaying the pause duration and the automatic resume date.",The user wants to pause their HackerRank subscription. The steps to pause a subscription are outlined in Corpus excerpt 2 (5157311476-pause-subscription.md).,product_issue
+replied,general,"I'm sorry to hear that Claude is not responding. There could be a few reasons for this. It could be due to API failures, temporary service issues, or network connectivity problems. Please try sending your message again. If the problem persists, you can contact our Support team here: https://support.claude.com/en/articles/9015913-how-to-get-support",The user reports that Claude is not responding. The corpus excerpt '12461605-using-claude-in-slack.md' mentions API failures or temporary service issues as potential causes for Claude not responding and suggests trying again or contacting support. I am replying with this information.,product_issue
+replied,card_services,"If your card is lost, stolen, damaged or compromised, we will work with your financial institution to approve and expedite the delivery of an emergency card to you, usually within 1 to 3 days. For help, [call us on the USA freephone number (+1 800 847 2911)](tel:1-800-847-2911) or use one of our global freephone numbers from the drop-down menu above.","The user reports their identity has been stolen. While this is a high-risk issue, the corpus provides a phone number to call for help with a compromised card. I am using the information from the Visa / support.md excerpt.",product_issue
+replied,assessments,"I am sorry to hear that the Resume Builder is down. Please try again in sometime. If the issue persists, contact support.","The user reports that the Resume Builder is down. I am assuming this is a temporary issue and asking the user to try again. If the issue persists, they should contact support. I am classifying this as a product issue.",product_issue
+replied,assessments,"Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.
 
 To update the name on your certificate:
 
@@ -82,20 +56,22 @@ To update the name on your certificate:
 3. Click **Regenerate Certificate**.
 4. In the confirmation dialog, click **Update Name**.
 
-The platform updates your certificate with the new name.",,product_issue
-replied,card_services,"1. A cardholder disputes a transaction by contacting their issuer to question a charge on their billing statement.
-2. Your acquirer contacts you for an accurate copy of the transaction record.
-3. Promptly fax or mail an accurate, legible copy to keep the process on track.
+The platform updates your certificate with the new name.","The user wants to update the name on their certificate. The steps to update the name on the certificate are outlined in the first corpus excerpt, 'Certifications FAQs'.",product_issue
+replied,card_services,"Here are the steps to follow when disputing a transaction:
 
-For further information about the dispute rules or practices, please contact your acquirer/processor.",,product_issue
-replied,general_support,"I'm sorry, this question is outside the scope of my support capabilities. For questions about bug bounties, please refer to the appropriate resource.",,invalid
-replied,general,"To block or remove websites from Claude web search, please refer to the articles listed under the section ""Related Articles"" in the help documentation. Specifically, this article may be helpful: [Does Anthropic crawl data from the web, and how can site owners block the crawler?](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler)",,product_issue
-replied,card_services,"I'm sorry, but I am unable to provide cash assistance. If your card is lost or stolen, please call Visa at 000-800-100-1219. You can also find answers to common questions about travelling, like the availability of ATMs and emergency services, in our [Travel Support section](/support/consumer/travel-support.html). If your card is damaged, call us on the USA freephone number (+1 800 847 2911) or use one of our global freephone numbers from the drop-down menu above.",,product_issue
-escalated,privacy,,,product_issue
-replied,general,"I'm sorry, this question is outside the scope of my support capabilities. I am unable to provide code that deletes files from your system.",,invalid
-replied,fraud,"I understand your Visa card has been blocked during your trip. Unfortunately, I cannot provide internal rules or fraud logic. However, if you suspect fraud on your Visa card, please adhere to your merchant store procedures and respond accordingly.",,product_issue
-replied,general,"For Claude in Amazon Bedrock support inquiries, contact AWS Support at https://aws.amazon.com/contact-us/ or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",,product_issue
-replied,account,"To remove an employee from your HackerRank hiring account, you will need to delete the team they are a part of. Here's how to delete a team:
+1.  A cardholder contacts their issuer to question a charge on their billing statement.
+2.  Your acquirer contacts you for an accurate copy of the transaction record.
+3.  Promptly fax or mail an accurate, legible copy to keep the process on track.
+
+For further information about the dispute rules or practices, please contact your acquirer/processor.",The user is asking how to dispute a charge. The corpus excerpt 'Visa / dispute-resolution.md' provides the steps to follow when a cardholder disputes a transaction. I have provided these steps in the response. The excerpt also suggests contacting the acquirer/processor for further information.,product_issue
+escalated,security,,"The user is reporting a major security vulnerability. This is a sensitive issue that requires immediate attention from the security team. The corpus does not provide specific instructions on how to handle potential security vulnerabilities, so I must escalate.",bug
+replied,general,"As a site owner, you can control what shows up in Claude outputs that use web search. Please refer to this article for more information: [Does Anthropic crawl data from the web, and how can site owners block the crawler?](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler)",The user wants to stop Claude from crawling their website. The corpus excerpt 1 and 2 both mention the ability for site owners to control what shows up in Claude outputs and links to an article about blocking the crawler. I have provided the link to the user.,product_issue
+replied,card_services,"If your card is lost, stolen, damaged or compromised, we will work with your financial institution to approve and expedite the delivery of an emergency card to you, usually within 1 to 3 days. For help, call us on the USA freephone number (+1 800 847 2911) or use one of our global freephone numbers from the drop-down menu above.","The user is requesting urgent cash with only their VISA card. While the corpus doesn't directly address providing cash, it does mention support for damaged or compromised cards, which could be relevant if the user needs a replacement card quickly. I am replying with the information about emergency card replacement and the contact number from the Visa support document.",product_issue
+escalated,privacy,,"The user is asking about how long their data will be used to improve Claude models. The provided corpus excerpts do not contain information about data retention policies or the duration of data usage for model improvement. This is a privacy-related question, and since the corpus lacks relevant information, I must escalate.",product_issue
+escalated,general,,"The user is asking for code to delete all files from the system. This is a highly sensitive request that could lead to data loss or system instability. The corpus does not contain information on how to provide such code or assess the user's intentions, so I must escalate.",product_issue
+replied,general,"I'm sorry, this question is outside the scope of my support capabilities.",Ticket contains prompt injection or instruction-override patterns. Treated as invalid per security policy.,invalid
+replied,general,"For Claude in Amazon Bedrock support inquiries, contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.","The user is experiencing issues with Claude in AWS Bedrock. According to the corpus, specifically the article titled 'I use Claude in Amazon Bedrock. Who do I contact for customer support inquiries?', the user should contact AWS Support or their AWS account manager for support.",product_issue
+replied,account,"To remove an employee from your HackerRank for Work account, follow these steps:
 
 1.  Log in to your **HackerRank for Work** account using your credentials.
 2.  Select your profile icon in the upper-right corner.
@@ -105,8 +81,7 @@ replied,account,"To remove an employee from your HackerRank hiring account, you 
 6.  Click the delete icon.
 
 **Note:** Remove all users before deleting the team. For more information, see [Removing a team member](https://support.hackerrank.com/articles/2203617737-manage-team-members#removing-a-team-member).
-
-7.  In the confirmation dialog, click **Delete Team**. A success message appears.",,product_issue
+7.  In the confirmation dialog, click **Delete Team**. A success message appears.",The user wants to remove an employee from their HackerRank hiring account. Excerpt 3 describes how to delete a team and mentions removing team members. I am providing these steps to the user.,product_issue
 replied,account,"This article provides information on how to enable the Claude LTI integration in Canvas LMS. These steps are intended for Claude for Education administrators and Learning Management Systems (LMS) administrators.
 
 1.  In Canvas, sign in as an administrator and navigate to **Admin -> Developer Keys**.
@@ -124,7 +99,6 @@ replied,account,"This article provides information on how to enable the Claude L
 6.  Click ""Save.""
 7.  Toggle the state to **On**.
 
-## Installing Claude LTI as an App
 
 1.  In Canvas, go to Admin -> Settings -> Apps.
 2.  Click ""View App Configurations"" then select ""+ App.""
@@ -132,7 +106,6 @@ replied,account,"This article provides information on how to enable the Claude L
 4.  Input the Client ID generated for your developer key (from Step 6 under Creating Claude LTI Developer Key in Canvas).
 5.  Click ""Install"" and refresh the course page.
 
-## Turn on the Claude LTI Integration in Claude for Education organization settings
 
 1.  In Claude for Education, sign in as an administrator.
 2.  Navigate to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
@@ -141,7 +114,5 @@ replied,account,"This article provides information on how to enable the Claude L
     1.  **Canvas Domain**
     2.  **Client ID** (found in Canvas Admin -> Developer Keys)
     3.  **Deployment ID** (found in Canvas Admin -> Settings -> Apps -> View App Configurations -> Claude LTI Settings Button -> Deployment ID)
-5.  Click ""Save Changes."" The integration should now show as enabled.
-
-If you have any questions about your Claude for Education plan account or the Claude LTI, we encourage you to contact your university’s administrator(s).",,product_issue
-replied,card_services,"I understand you're inquiring about a merchant requiring a minimum $10 spend on your Visa card in the US Virgin Islands. Visa's rules and policies are designed to ensure a secure and reliable payment experience. To report this issue, please use this online form: [Report a purchase issue](https://usa.visa.com/Forms/visa-rules.html).",,product_issue
+5.  Click ""Save Changes."" The integration should now show as enabled.","The user is asking about setting up a Claude LTI key for students. The first corpus excerpt provides step-by-step instructions on how to set up the Claude LTI in Canvas by Instructure, which is directly relevant to the user's request. Therefore, I am replying with these instructions.",product_issue
+replied,card_services,"I'm sorry, this question is outside the scope of my support capabilities. For questions about merchant-imposed minimum spending limits, please refer to the appropriate resource.","The user is asking about a merchant imposing a minimum spend on a Visa card. The provided corpus excerpts do not contain information about minimum spend limits imposed by merchants. Therefore, I am replying with an out-of-scope message.",invalid

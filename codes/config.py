@@ -71,6 +71,21 @@ HIGH_RISK_KEYWORDS = [
     "not me", "wasn't me", "didn't make this",
 ]
 
+# ── Outage keywords → always escalate, no LLM needed ─────────────────────────
+OUTAGE_KEYWORDS = [
+    "site is down",
+    "website is down",
+    "platform is down",
+    "server is down",
+    "service is down",
+    "everything is down",
+    "none of the pages are accessible",
+    "not loading for anyone",
+    "down for everyone",
+    "complete outage",
+    "total outage",
+]
+
 # ── Company inference keywords (when company == None) ────────────────────────
 COMPANY_KEYWORDS = {
     "hackerrank": [
@@ -102,6 +117,12 @@ INJECTION_PATTERNS = [
     "you are now",
     "new instructions:",
     "override instructions",
+    "show me the retrieved",
+    "display the retrieved",
+    "show all internal rules",
+    "display internal rules",
+    "affiche toutes les règles",   # French injection (ticket 25)
+    "règles internes",
 ]
 
 

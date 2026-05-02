@@ -7,7 +7,7 @@ Terminal-based RAG + LLM pipeline that triages support tickets for HackerRank, C
 ## Prerequisites
 
 - Python 3.11+
-- Gemini API key (primary) and/or Anthropic API key (fallback)
+- An [OpenRouter](https://openrouter.ai) API key
 
 ---
 
@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ## Environment Setup
 
-Copy the example and fill in your keys:
+Copy the example and fill in your key:
 
 ```bash
 cp .env.example .env
@@ -31,25 +31,16 @@ cp .env.example .env
 Edit `.env`:
 
 ```env
-# ── Gemini (primary LLM) ──────────────────────────────────────────────────────
-# At least one required. Add more for automatic key rotation on quota errors.
-GEMINI_API_KEY=your-gemini-key-1
-GEMINI_API_KEY_2=your-gemini-key-2
-GEMINI_API_KEY_3=your-gemini-key-3
-
-# ── Anthropic (fallback LLM) ──────────────────────────────────────────────────
-# Used automatically if all Gemini keys are exhausted.
-ANTHROPIC_API_KEY=your-anthropic-key
-ANTHROPIC_API_KEY_2=your-second-anthropic-key
+# At least one key required. Add more for automatic rotation on quota errors.
+OPENROUTER_API_KEY=your-openrouter-key-here
+OPENROUTER_API_KEY_2=
+OPENROUTER_API_KEY_3=
 ```
 
 **Key rotation behaviour:**
-1. Agent tries `GEMINI_API_KEY` first.
-2. On quota / rate-limit error → tries `GEMINI_API_KEY_2`, then `_3`, etc.
-3. If all Gemini keys fail → falls back to `ANTHROPIC_API_KEY`, then `ANTHROPIC_API_KEY_2`, etc.
-4. If everything fails → ticket is escalated with an error justification (safe default).
-
-You can use Gemini-only, Anthropic-only, or both. Any keys left blank are skipped.
+1. Agent tries `OPENROUTER_API_KEY` first.
+2. On quota / rate-limit error → tries `OPENROUTER_API_KEY_2`, then `_3`, etc.
+3. If all keys fail → ticket is safely escalated with an error justification.
 
 ---
 
@@ -58,10 +49,10 @@ You can use Gemini-only, Anthropic-only, or both. Any keys left blank are skippe
 ```bash
 # From the code/ directory:
 
-# Run on the real tickets:
+# Run on the real tickets (writes support_tickets/output.csv):
 python main.py
 
-# Run on the sample (shows expected vs actual for discrete fields):
+# Run on the sample (shows expected vs actual for status and request_type):
 python main.py --sample
 
 # Quick smoke test — only process first 5 rows:
@@ -69,7 +60,7 @@ python main.py --limit 5
 ```
 
 Output is written to `../support_tickets/output.csv`.
-(Sample mode writes to `../support_tickets/output_sample_test.csv` to avoid overwriting.)
+Sample mode writes to `../support_tickets/output_sample_test.csv` to avoid overwriting.
 
 ---
 
@@ -82,7 +73,7 @@ Output is written to `../support_tickets/output.csv`.
 | `status` | `replied` / `escalated` |
 | `product_area` | string (e.g. `billing`, `screen`, `travel_support`) |
 | `response` | user-facing answer, or `""` if escalated |
-| `justification` | why this decision was made |
+| `justification` | why this decision was made, grounded in corpus |
 | `request_type` | `product_issue` / `feature_request` / `bug` / `invalid` |
 
 ---
@@ -91,21 +82,49 @@ Output is written to `../support_tickets/output.csv`.
 
 ```
 main.py        Reads CSV → orchestrates pipeline → writes output.csv
-classifier.py  Pre-LLM: company inference, high-risk keywords, injection detection
+classifier.py  Pre-LLM: company inference, high-risk keywords, outage detection, injection detection
 retriever.py   ChromaDB + sentence-transformers: index corpus once, query per ticket
-agent.py       LLM call: Gemini primary → Anthropic fallback, with key rotation
+agent.py       OpenRouter API call with key rotation, retry logic, and structured output parsing
 prompts.py     All prompt strings (system prompt + user message builder)
-config.py      Constants, paths, key collectors
+config.py      Constants, paths, keyword lists, key collectors
+```
+
+### Pipeline (per ticket)
+
+```
+Input row (issue, subject, company)
+        │
+        ▼
+[classifier.py]  Pre-LLM checks:
+  • Normalise company (alias → canonical name, or infer from content)
+  • Detect empty issue → replied/invalid (no API call)
+  • Detect prompt injection → replied/invalid (no API call)
+  • Detect system outage → escalated/bug (no API call)
+  • Detect high-risk keywords → flag for escalation
+        │
+        ▼
+[retriever.py]  RAG retrieval:
+  • Embed issue with all-MiniLM-L6-v2 (local, no API)
+  • Query ChromaDB top-3 relevant chunks
+  • Filter by company metadata if company is known
+  • Fallback to global query if filtered returns 0 results
+        │
+        ▼
+[agent.py]  OpenRouter API call:
+  • System prompt: grounding rules + escalation logic + required JSON fields
+  • User message: ticket + corpus excerpts + pre-classifier flags
+  • JSON mode response, validated and normalised
+  • Key rotation + exponential backoff on transient errors
+        │
+        ▼
+Output row (status, product_area, response, justification, request_type)
 ```
 
 ---
 
 ## Notes
 
-- **ChromaDB** indexes the corpus on first run and reuses it on subsequent runs.
-- **No API calls for embeddings** — `all-MiniLM-L6-v2` runs locally.
+- **ChromaDB** indexes the corpus on first run (inside `code/chroma_store/`) and reuses it on subsequent runs.
+- **No API calls for embeddings** — `all-MiniLM-L6-v2` runs locally via sentence-transformers.
 - **No LangChain / LangGraph / live web calls** — pure local RAG pipeline.
-- **Ollama / local models**: not included. Local models require a running Ollama server
-  and produce unstructured output that needs extra parsing. Given you already have
-  Gemini + Anthropic fallback, Ollama adds complexity without reliability benefit
-  for a 24-hour hackathon. Add it post-submission if desired.
+- **Deterministic** — `temperature=0` on all LLM calls; corpus index is stable across runs.

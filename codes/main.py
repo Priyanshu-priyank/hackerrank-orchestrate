@@ -7,40 +7,45 @@ Usage:
     python main.py --limit 5    # Process only first N rows (for quick testing)
 
 Output:
-    support_tickets/output.csv
+    support_tickets/output.csv   <- submission file (5 required columns only)
+    triage.log                   <- full run log with timestamps (same dir as main.py)
+
+Note on log.txt:
+    The hackathon's log.txt at $HOME/hackerrank_orchestrate/log.txt is your AI CHAT
+    TRANSCRIPT (conversations with Claude/Cursor). That is written by your AI tool,
+    not by this script. triage.log is this agent's runtime log — a separate file.
 """
 
 import os
-# Fix #6: Suppress ChromaDB and tokenizer telemetry/noise before any imports
+
+# Suppress ChromaDB and tokenizer noise BEFORE any other imports
 os.environ["CHROMA_TELEMETRY_DISABLED"] = "1"
 os.environ["ANONYMIZED_TELEMETRY"] = "False"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"  # Fix #5: prevent fork deadlock on Windows/macOS
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import argparse
 import logging
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
-# Fix #10: Reconfigure stdout to UTF-8 on Windows terminals (default cp1252 crashes on ✓/✗)
+# Fix UTF-8 on Windows terminals (default cp1252 crashes on unicode chars)
 if hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
     except Exception:
-        pass  # already UTF-8 or reconfigure not supported — safe to ignore
+        pass
 
-# Fix #12: Silence ChromaDB posthog telemetry at the logger level.
-# The env var alone doesn't work when posthog has a version mismatch (capture() signature error).
-# Suppressing these loggers stops the "Failed to send telemetry event" noise entirely.
-for _noisy_logger in ("chromadb.telemetry", "posthog", "chromadb"):
-    logging.getLogger(_noisy_logger).setLevel(logging.CRITICAL)
+# Silence ChromaDB posthog telemetry at logger level too
+for _noisy in ("chromadb.telemetry", "posthog", "chromadb"):
+    logging.getLogger(_noisy).setLevel(logging.CRITICAL)
 
 import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Add code/ to path so imports work when running from any directory
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import INPUT_CSV, OUTPUT_CSV, SAMPLE_CSV
@@ -49,120 +54,263 @@ from classifier import classify
 from agent import run_agent
 
 OUTPUT_COLUMNS = ["status", "product_area", "response", "justification", "request_type"]
+REQUIRED_INPUT_COLUMNS = {"issue", "subject", "company"}
 
 
-def process_tickets(df: pd.DataFrame, retriever: Retriever, sample_mode: bool = False) -> pd.DataFrame:
+# ── Logging setup ─────────────────────────────────────────────────────────────
+
+def setup_logging(log_path: Path) -> logging.Logger:
     """
-    Process all rows in df and return a DataFrame with the 5 output columns.
-    Prints per-row progress to terminal.
+    Configure the 'triage' logger to write to both:
+      - stdout  (no timestamp prefix — clean while watching live)
+      - triage.log (full timestamped log — saved for review and debugging)
+    """
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+
+    logger = logging.getLogger("triage")
+    logger.setLevel(logging.DEBUG)
+    logger.propagate = False  # don't bubble up to root logger
+
+    # File handler: timestamped, captures DEBUG and above
+    fh = logging.FileHandler(log_path, encoding="utf-8", mode="a")
+    fh.setLevel(logging.DEBUG)
+    fh.setFormatter(logging.Formatter(
+        "[%(asctime)s] %(levelname)-7s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    ))
+
+    # Console handler: no timestamp prefix, INFO and above only
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.INFO)
+    ch.setFormatter(logging.Formatter("%(message)s"))
+
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+    return logger
+
+
+# ── CSV validation ────────────────────────────────────────────────────────────
+
+def validate_csv_columns(df: pd.DataFrame, logger: logging.Logger) -> None:
+    """Warn clearly if expected input columns are missing."""
+    present = set(df.columns)
+    missing = REQUIRED_INPUT_COLUMNS - present
+    if missing:
+        logger.warning(
+            f"CSV is missing expected column(s): {sorted(missing)}. "
+            f"Affected rows will be treated as empty. "
+            f"Columns found: {sorted(present)}"
+        )
+    extra = present - REQUIRED_INPUT_COLUMNS - set(OUTPUT_COLUMNS)
+    if extra:
+        logger.debug(f"CSV has extra columns (ignored): {sorted(extra)}")
+
+
+# ── Core pipeline ─────────────────────────────────────────────────────────────
+
+def process_tickets(
+    df: pd.DataFrame,
+    retriever: Retriever,
+    logger: logging.Logger,
+    sample_mode: bool = False,
+) -> pd.DataFrame:
+    """
+    Process every row through the full RAG + LLM pipeline.
+    Logs each result to both console (stdout) and triage.log.
     """
     results = []
     total = len(df)
+    run_start = time.time()
 
-    print(f"\n{'='*60}")
-    print(f"Processing {total} ticket(s)…")
-    print(f"{'='*60}\n")
+    logger.info("")
+    logger.info("=" * 64)
+    logger.info(f"Processing {total} ticket(s)...")
+    logger.info("=" * 64)
 
     for idx, row in df.iterrows():
-        issue   = str(row.get("issue", "") or "").strip()
+        row_num = idx + 1  # 1-based for humans
+
+        issue   = str(row.get("issue",   "") or "").strip()
         subject = str(row.get("subject", "") or "").strip()
         company = str(row.get("company", "") or "").strip()
 
-        # Pre-LLM classification
         clf = classify(issue, subject, company)
 
-        # Run full pipeline
         t0 = time.time()
         result = run_agent(issue, subject, clf, retriever)
         elapsed = time.time() - t0
 
         results.append(result)
 
-        # Terminal progress line
-        company_display = clf.company or "unknown"
-        print(
-            f"[{idx+1:>3}/{total}] "
-            f"co={company_display:<12} "
-            f"status={result['status']:<10} "
-            f"type={result['request_type']:<16} "
-            f"area={result['product_area']:<20} "
+        # ── Main progress line ────────────────────────────────────────────
+        co_disp  = (clf.company or "unknown").ljust(12)
+        inferred = " [inferred]" if clf.inferred_company else ""
+        status   = result["status"].ljust(10)
+        rtype    = result["request_type"].ljust(16)
+        area     = result["product_area"].ljust(20)
+
+        logger.info(
+            f"[{row_num:>3}/{total}] "
+            f"co={co_disp}{inferred} "
+            f"status={status} "
+            f"type={rtype} "
+            f"area={area} "
             f"({elapsed:.1f}s)"
         )
 
-        # In sample mode, show expected vs actual for columns that exist
-        if sample_mode:
-            for col in OUTPUT_COLUMNS:
-                expected_col = col  # sample CSV uses same column names
-                if expected_col in row and pd.notna(row[expected_col]):
-                    expected = str(row[expected_col]).strip().lower()
-                    actual   = str(result.get(col, "")).strip().lower()
-                    match    = "[PASS]" if expected == actual else "[FAIL]"
-                    if col in ("status", "request_type"):  # only flag discrete fields
-                        print(f"       {match} {col}: expected={expected!r} got={actual!r}")
+        # ── Detail lines (log file only — not printed to console) ─────────
+        detail_logger = logging.getLogger("triage")
 
+        flags = []
+        if clf.is_empty:     flags.append("EMPTY_ISSUE")
+        if clf.is_injection: flags.append("PROMPT_INJECTION")
+        if clf.is_high_risk: flags.append(f"HIGH_RISK[{', '.join(clf.risk_triggers)}]")
+        if flags:
+            detail_logger.debug(f"  flags: {' | '.join(flags)}")
+
+        just = result.get("justification", "")
+        if just:
+            detail_logger.debug(
+                f"  justification: {just[:140]}{'...' if len(just) > 140 else ''}"
+            )
+
+        if result["status"] == "escalated":
+            detail_logger.debug(f"  ESCALATED — no response generated")
+
+        # ── Sample mode: show expected vs actual ──────────────────────────
+        if sample_mode:
+            for col in ("status", "request_type"):
+                if col in row and pd.notna(row[col]):
+                    expected = str(row[col]).strip().lower()
+                    actual   = str(result.get(col, "")).strip().lower()
+                    mark = "PASS" if expected == actual else "FAIL"
+                    logger.info(
+                        f"       [{mark}] {col}: expected={expected!r}  got={actual!r}"
+                    )
+
+    # ── Assemble output DataFrame ─────────────────────────────────────────
     out_df = pd.DataFrame(results, columns=OUTPUT_COLUMNS)
 
-    # Preserve original input columns in output (handy for review)
     for col in ["issue", "subject", "company"]:
         if col in df.columns:
             out_df.insert(0, col, df[col].values)
 
+    total_elapsed = time.time() - run_start
+    logger.info("")
+    logger.info(
+        f"All {total} tickets processed in {total_elapsed:.1f}s "
+        f"(avg {total_elapsed / max(total, 1):.1f}s/ticket)"
+    )
     return out_df
 
 
+# ── Entry point ───────────────────────────────────────────────────────────────
+
 def main():
-    parser = argparse.ArgumentParser(description="HackerRank Orchestrate — Support Triage Agent")
-    parser.add_argument("--sample", action="store_true", help="Run on sample CSV (shows expected vs actual)")
-    parser.add_argument("--limit", type=int, default=None, help="Process only first N rows")
+    parser = argparse.ArgumentParser(
+        description="HackerRank Orchestrate — Support Triage Agent"
+    )
+    parser.add_argument(
+        "--sample", action="store_true",
+        help="Run on sample_support_tickets.csv and compare expected vs actual",
+    )
+    parser.add_argument(
+        "--limit", type=int, default=None,
+        help="Process only the first N rows (quick smoke test)",
+    )
     args = parser.parse_args()
 
-    input_path = SAMPLE_CSV if args.sample else INPUT_CSV
+    # ── Logging ───────────────────────────────────────────────────────────
+    log_file = Path(__file__).parent / "triage.log"
+    logger = setup_logging(log_file)
 
-    print(f"\n{'='*60}")
-    print("HackerRank Orchestrate — Support Triage Agent")
-    print(f"{'='*60}")
-    print(f"Input:  {input_path}")
-    print(f"Output: {OUTPUT_CSV}")
+    run_ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    logger.info("")
+    logger.info("=" * 64)
+    logger.info("HackerRank Orchestrate — Support Triage Agent")
+    logger.info(f"Run started : {run_ts}")
+    logger.info(f"Log file    : {log_file}")
+    logger.info("=" * 64)
 
-    # Load input CSV
-    if not Path(input_path).exists():
-        print(f"\n❌ Input file not found: {input_path}")
+    # ── Paths ─────────────────────────────────────────────────────────────
+    input_path  = Path(SAMPLE_CSV if args.sample else INPUT_CSV)
+    output_path = (
+        Path(OUTPUT_CSV).parent / "output_sample_test.csv"
+        if args.sample
+        else Path(OUTPUT_CSV)
+    )
+
+    logger.info(f"Input  : {input_path}")
+    logger.info(f"Output : {output_path}")
+    if args.limit:
+        logger.info(f"Limit  : first {args.limit} rows (smoke-test mode)")
+
+    # ── Guard: input file must exist ──────────────────────────────────────
+    if not input_path.exists():
+        logger.error(f"Input file not found: {input_path}")
+        logger.error(
+            "Tip: run from the code/ directory, or check the paths in config.py."
+        )
         sys.exit(1)
 
+    # ── Guard: output directory must exist (create if missing) ────────────
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # ── Load CSV ──────────────────────────────────────────────────────────
     df = pd.read_csv(input_path, encoding="utf-8")
-    df.columns = df.columns.str.lower().str.strip()  # Fix #1: normalise column headers to lowercase
-    print(f"Loaded {len(df)} rows.\n")
+    df.columns = df.columns.str.lower().str.strip()  # normalise headers
+    logger.info(f"Loaded {len(df)} rows from {input_path.name}")
+
+    validate_csv_columns(df, logger)
 
     if args.limit:
         df = df.head(args.limit)
-        print(f"(Limited to first {args.limit} rows.)\n")
+        logger.info(f"Trimmed to first {len(df)} rows.")
 
-    # Initialise retriever (indexes corpus once, then reuses ChromaDB)
+    # ── Retriever init ────────────────────────────────────────────────────
     retriever = Retriever()
 
-    # Run pipeline
-    out_df = process_tickets(df, retriever, sample_mode=args.sample)
+    # ── Pipeline ──────────────────────────────────────────────────────────
+    out_df = process_tickets(df, retriever, logger, sample_mode=args.sample)
 
-    # Write output (only the 5 required columns for the real run)
-    output_path = OUTPUT_CSV
+    # ── Write output CSV ──────────────────────────────────────────────────
+    # Real run  → 5 required columns only (submission format)
+    # Sample run → all columns kept for manual review
     if args.sample:
-        # In sample mode, write to a separate file to avoid overwriting real output
-        output_path = Path(OUTPUT_CSV).parent / "output_sample_test.csv"
+        out_df.to_csv(output_path, index=False)
+    else:
+        out_df[OUTPUT_COLUMNS].to_csv(output_path, index=False)
 
-    # Write only the required 5 columns to the submission file
-    submission_cols = out_df[OUTPUT_COLUMNS] if not args.sample else out_df
-    submission_cols.to_csv(output_path, index=False)
+    logger.info("")
+    logger.info("=" * 64)
+    logger.info(f"Done. Output written to: {output_path}")
+    logger.info("")
 
-    print(f"\n{'='*60}")
-    print(f"✅ Done. Output written to: {output_path}")
-    print(f"{'='*60}\n")
-
-    # Summary stats
+    # ── Summary ───────────────────────────────────────────────────────────
     status_counts = out_df["status"].value_counts().to_dict()
     type_counts   = out_df["request_type"].value_counts().to_dict()
-    print("Summary:")
-    print(f"  Status:       {status_counts}")
-    print(f"  Request type: {type_counts}\n")
+    area_counts   = out_df["product_area"].value_counts().to_dict()
+
+    logger.info("Summary")
+    logger.info(f"  Status       : {status_counts}")
+    logger.info(f"  Request type : {type_counts}")
+    logger.info(f"  Product area : {area_counts}")
+
+    # Escalation details — handy for judge interview prep
+    escalated_df = out_df[out_df["status"] == "escalated"]
+    if not escalated_df.empty:
+        logger.info(f"  Escalated    : {len(escalated_df)} ticket(s) — reasons:")
+        for _, esc in escalated_df.iterrows():
+            co  = str(esc.get("company", "?"))
+            jst = str(esc.get("justification", ""))[:90]
+            logger.info(f"    co={co:<12}  {jst}")
+
+    logger.info("=" * 64)
+    logger.info(f"Run ended : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info("")
+
+    # Console-only hint about the log file location
+    print(f"\n  Full timestamped log saved to: {log_file}\n")
 
 
 if __name__ == "__main__":

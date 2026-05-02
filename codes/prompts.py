@@ -69,6 +69,22 @@ PRODUCT AREA EXAMPLES
 HackerRank: screen, billing, community, account, proctoring, assessments
 Claude: privacy, account, billing, conversation_management, general
 Visa: card_services, travel_support, billing, fraud, general_support
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+JSON OUTPUT — REQUIRED FIELDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You MUST return a valid JSON object with EXACTLY these five fields:
+
+{
+  "status": "replied" or "escalated",
+  "product_area": "string — the most relevant support category",
+  "response": "string — user-facing answer, or empty string if escalated",
+  "justification": "string — 1-3 sentences explaining your decision, which corpus section was used, and why",
+  "request_type": "product_issue" or "feature_request" or "bug" or "invalid"
+}
+
+The "justification" field is MANDATORY. Never omit it. Never leave it blank.
+It should briefly explain: (1) what the ticket is about, (2) which corpus excerpt guided your answer or escalation decision, (3) why you chose replied vs escalated.
 """
 
 
@@ -81,7 +97,7 @@ def build_user_message(
     is_injection: bool,
 ) -> str:
     """
-    Build the user-turn message for the Claude API call.
+    Build the user-turn message for the LLM API call.
     Includes ticket details, pre-classification signals, and retrieved corpus.
     """
     company_label = company.title() if company else "Unknown (infer from content)"
@@ -106,6 +122,8 @@ Issue:
 {corpus_text}
 
 == INSTRUCTIONS ==
-Using ONLY the corpus excerpts above, triage this ticket by calling the triage_ticket tool.
+Using ONLY the corpus excerpts above, triage this ticket.
+Return a JSON object with ALL five fields: status, product_area, response, justification, request_type.
+The "justification" field MUST be filled in — explain which corpus section informed your decision.
 If the corpus does not cover this issue and the ticket is sensitive, escalate.
 If the issue is irrelevant/out-of-scope/invalid, reply with an out-of-scope message and set request_type=invalid."""

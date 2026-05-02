@@ -1,11 +1,12 @@
 """
 classifier.py — Pre-LLM triage signals.
 
-Runs BEFORE the Claude API call to:
+Runs BEFORE the LLM API call to:
   1. Normalise the company field (handle None / aliases)
   2. Detect high-risk keywords that should bias toward escalation
-  3. Detect prompt-injection attempts (treat as invalid)
-  4. Infer company from issue text when company == None
+  3. Detect system-wide outage phrases → hard escalate, skip LLM
+  4. Detect prompt-injection attempts (treat as invalid)
+  5. Infer company from issue text when company == None
 
 Returns a ClassifierResult dataclass consumed by agent.py.
 """
@@ -19,6 +20,7 @@ from config import (
     COMPANY_KEYWORDS,
     HIGH_RISK_KEYWORDS,
     INJECTION_PATTERNS,
+    OUTAGE_KEYWORDS,
     VALID_COMPANIES,
 )
 
@@ -29,6 +31,7 @@ class ClassifierResult:
     is_high_risk: bool             # True → bias toward escalation
     is_injection: bool             # True → treat as invalid, reply out-of-scope
     is_empty: bool                 # True → no usable issue content
+    is_outage: bool                # True → hard-escalate, skip LLM
     risk_triggers: list[str] = field(default_factory=list)   # which keywords fired
     inferred_company: bool = False # True if company was guessed from content
 
@@ -55,11 +58,15 @@ def classify(issue: str, subject: str, raw_company: str) -> ClassifierResult:
     # ── 4. High-risk keyword detection ───────────────────────────────────────
     is_high_risk, risk_triggers = _detect_high_risk(issue)
 
+    # ── 5. Outage detection ───────────────────────────────────────────────────
+    is_outage = _detect_outage(issue, subject)
+
     return ClassifierResult(
         company=company,
         is_high_risk=is_high_risk,
         is_injection=is_injection,
         is_empty=is_empty,
+        is_outage=is_outage,
         risk_triggers=risk_triggers,
         inferred_company=inferred,
     )
@@ -110,3 +117,9 @@ def _detect_high_risk(issue: str) -> tuple[bool, list[str]]:
     text = (issue or "").lower()
     triggers = [kw for kw in HIGH_RISK_KEYWORDS if kw in text]
     return (len(triggers) > 0), triggers
+
+
+def _detect_outage(issue: str, subject: str) -> bool:
+    """Return True if the ticket describes a system-wide outage."""
+    text = ((issue or "") + " " + (subject or "")).lower()
+    return any(phrase in text for phrase in OUTAGE_KEYWORDS)
