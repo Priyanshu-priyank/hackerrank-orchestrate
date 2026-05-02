@@ -1,33 +1,20 @@
+import os
+
+_CODE_DIR = os.path.dirname(os.path.abspath(__file__))
+_ROOT_DIR = os.path.dirname(_CODE_DIR)
+
 MODEL = "gemini-2.5-flash"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-
-CORPUS_PATH = "../data"
-INPUT_CSV = "../support_tickets/support_tickets.csv"
-OUTPUT_CSV = "../support_tickets/output.csv"
-SAMPLE_CSV = "../support_tickets/sample_support_tickets.csv"
-CHROMA_PERSIST_PATH = "./chroma_store"
-
 TOP_K_RETRIEVAL = 3
 MAX_CHUNK_TOKENS = 500
-MAX_ISSUE_WORDS = 1500
+CORPUS_PATH = os.path.join(_ROOT_DIR, "data")
+CHROMA_PERSIST_PATH = os.path.join(_CODE_DIR, "chroma_store")
+INPUT_CSV = os.path.join(_ROOT_DIR, "support_tickets", "support_tickets.csv")
+OUTPUT_CSV = os.path.join(_ROOT_DIR, "support_tickets", "output.csv")
+SAMPLE_CSV = os.path.join(_ROOT_DIR, "support_tickets", "sample_support_tickets.csv")
 
-OUTPUT_COLUMNS = [
-    "status",
-    "product_area",
-    "response",
-    "justification",
-    "request_type",
+HIGH_RISK_KEYWORDS = [
+    "fraud", "unauthorized", "stolen", "hacked", "compromised",
+    "lawsuit", "legal action", "billing dispute", "charge back",
+    "account deleted", "security breach", "identity theft", "legal"
 ]
-
-PRODUCT_AREAS = {
-    "billing",
-    "account",
-    "screen",
-    "community",
-    "privacy",
-    "travel_support",
-    "general_support",
-    "conversation_management",
-    "out_of_scope",
-    "general",
-}

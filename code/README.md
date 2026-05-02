@@ -1,46 +1,39 @@
 # Support Triage Agent
 
-Terminal-based Python support triage agent for HackerRank Orchestrate.
+This agent uses RAG (Retrieval-Augmented Generation) with ChromaDB, SentenceTransformers, and Google Gemini to automatically triage support tickets for HackerRank, Claude, and Visa.
 
 ## Prerequisites
-
 - Python 3.11+
-- Gemini API key
+- Gemini API Key
 
-## Install
+## Installation
 
 ```bash
+# Create and activate a virtual environment
+python -m venv .venv
+# On Windows:
+.venv\Scripts\activate
+# On Unix:
+source .venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-## Environment
+## Environment Setup
 
-From the repository root:
+Copy `.env.example` to `.env` in the root directory:
+```bash
+cp ../.env.example ../.env
+```
+Open `../.env` and set your `GEMINI_API_KEY`.
+
+## Running the Agent
 
 ```bash
-cp .env.example .env
-```
+# Run against the main dataset (writes to support_tickets/output.csv)
+python main.py
 
-Add:
-
-```text
-GEMINI_API_KEY=your-gemini-api-key
-```
-
-## Run
-
-```bash
-cd code && python main.py
-```
-
-Output:
-
-```text
-../support_tickets/output.csv
-```
-
-## Test
-
-```bash
-cd code && python main.py --sample
+# Run against the sample dataset for testing
+python main.py --sample
 ```
